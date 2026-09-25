@@ -4,11 +4,11 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: '#0b1220',
-        foreground: '#f8fafc',
-        muted: '#94a3b8',
-        panel: '#111827',
-        accent: '#38bdf8',
+        background: '#080706',
+        foreground: '#f8f1df',
+        muted: '#988b70',
+        panel: '#11100c',
+        accent: '#d3a946',
       },
     },
   },
