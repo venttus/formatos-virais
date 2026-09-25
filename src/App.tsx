@@ -14,29 +14,66 @@ type Lead = {
   approved: boolean
 }
 
-const defaultSections: Section[] = [
-  {
-    id: 1,
-    title: 'A mentalidade que cria impérios',
-    description: 'O primeiro movimento para transformar atenção em autoridade digital.',
-    type: 'Aula exclusiva',
-    active: true,
-  },
-  {
-    id: 2,
-    title: 'O código da viralização',
-    description: 'Descubra como criar ideias que as pessoas sentem vontade de compartilhar.',
-    type: 'Playbook',
-    active: true,
-  },
-  {
-    id: 3,
-    title: 'Construa sua máquina de influência',
-    description: 'Uma visão prática para organizar conteúdo, comunidade e conversão.',
-    type: 'Em breve',
-    active: false,
-  },
+const formatTitles = [
+  'Caixinha de perguntas',
+  'POV',
+  'Diálogo',
+  'Choquei',
+  'Notícia',
+  'Meme',
+  'UGC em 1a Pessoa',
+  'Tela dividida',
+  'Fofoca',
+  'React',
+  'UGC em 3a Pessoa',
+  'Esquete',
+  'Fala e Faz',
+  'Depoimento',
+  'Experimento Social',
+  'Tela verde',
+  'Palestrinha',
+  'Telepatia',
+  'Análise',
+  'Google Meet',
+  'Telemarketing',
+  'POV + Meme',
+  'IO-FI',
+  'Corte de Podcast',
+  'Top 5 (ranking)',
+  'Conversa no Carro',
+  'Diálogo de Gêmeos',
+  'Mensagem',
+  'Passo a passo',
+  'Copy no papel',
+  'Cinema',
+  'ASMR',
+  'Live',
+  'Analogia',
+  'Receita',
+  'Tweet',
+  'Oferta Direta',
+  'Story',
+  'Série (dia 1, 2...)',
+  'Edit',
+  'Rotina',
+  'POV + Depoimento',
+  'Certo VS Errado',
+  'Trivial',
+  'The Office',
+  'TikTok',
+  'Leia a legenda',
+  'Entrevista',
+  'Jornal Nacional',
+  'Anjinho VS Diabinho',
 ]
+
+const defaultSections: Section[] = formatTitles.map((title, index) => ({
+  id: index + 1,
+  title,
+  description: `Um roteiro validado para transformar ${title.toLowerCase()} em conteúdo com potencial de alcance.`,
+  type: 'Formato viral',
+  active: true,
+}))
 
 const initialLeads: Lead[] = [
   { email: 'criador@exemplo.com', createdAt: 'Hoje, 09:41', approved: true },
@@ -57,7 +94,10 @@ export default function App() {
   const [email, setEmail] = useState('')
   const [submitted, setSubmitted] = useState(false)
   const [copied, setCopied] = useState(false)
-  const [sections, setSections] = useState<Section[]>(() => readStorage('viral-meet-sections', defaultSections))
+  const [sections, setSections] = useState<Section[]>(() => {
+    const savedSections = readStorage<Section[]>('viral-meet-sections', defaultSections)
+    return savedSections.length >= defaultSections.length ? savedSections : defaultSections
+  })
   const [leads, setLeads] = useState<Lead[]>(() => readStorage('viral-meet-leads', initialLeads))
   const [newSection, setNewSection] = useState('')
 
@@ -154,7 +194,30 @@ export default function App() {
             </div>
           </section>
 
-          <section className="border-t border-[#c7a14a]/15 py-16"><div className="mb-10 flex items-end justify-between gap-4"><div><p className="text-xs font-bold uppercase tracking-[0.25em] text-[#d9b65c]">Acesso ao movimento</p><h2 className="mt-3 text-3xl font-bold text-[#fff8e9]">Conteúdos para sair do comum.</h2></div><span className="hidden text-sm text-[#756b56] sm:block">{activeSections.length.toString().padStart(2, '0')} experiências disponíveis</span></div><div className="grid gap-4 md:grid-cols-3">{activeSections.map((section, index) => <article key={section.id} className="group rounded-2xl border border-[#c7a14a]/15 bg-[#11100c]/80 p-6 transition hover:-translate-y-1 hover:border-[#c7a14a]/50"><div className="mb-12 flex items-center justify-between"><span className="text-4xl font-black text-[#40331b]">0{index + 1}</span><span className="rounded-full border border-[#c7a14a]/20 px-3 py-1 text-[10px] uppercase tracking-wider text-[#c9aa61]">{section.type}</span></div><h3 className="text-xl font-bold text-[#f5e7c1]">{section.title}</h3><p className="mt-3 text-sm leading-6 text-[#988b70]">{section.description}</p><div className="mt-6 text-sm font-bold text-[#d9b65c] opacity-70 transition group-hover:opacity-100">Acessar conteúdo →</div></article>)}</div></section>
+          <section className="border-t border-[#c7a14a]/15 py-16">
+            <div className="mb-10 flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+              <div>
+                <p className="text-xs font-bold uppercase tracking-[0.25em] text-[#ff641d]">Biblioteca exclusiva</p>
+                <h2 className="mt-3 text-3xl font-black text-[#fff8e9] sm:text-4xl">50 formatos que podem viralizar.</h2>
+                <p className="mt-3 max-w-2xl text-sm leading-6 text-[#988b70]">Escolha uma estrutura, adapte para a sua mensagem e transforme ideias simples em conteúdos impossíveis de ignorar.</p>
+              </div>
+              <span className="rounded-full border border-[#ff641d]/30 bg-[#ff641d]/10 px-4 py-2 text-sm font-bold text-[#ff8a52]">{activeSections.length.toString().padStart(2, '0')} formatos disponíveis</span>
+            </div>
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+              {activeSections.map((section, index) => (
+                <article key={section.id} className="group overflow-hidden rounded-2xl border border-[#ff641d]/60 bg-[#120a06] shadow-[0_0_24px_rgba(255,76,16,0.08)] transition duration-300 hover:-translate-y-1 hover:border-[#ff8a52] hover:shadow-[0_0_30px_rgba(255,76,16,0.2)]">
+                  <div className="flex min-h-[118px] items-center gap-4 px-5 py-5">
+                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#ff5a13] text-sm font-black text-white shadow-[0_0_18px_rgba(255,90,19,0.45)]">{String(index + 1).padStart(2, '0')}</span>
+                    <div>
+                      <span className="mb-2 block text-[10px] font-bold uppercase tracking-[0.18em] text-[#ff7540]">Formato viral</span>
+                      <h3 className="text-base font-bold leading-tight text-[#fff8e9]">{section.title}</h3>
+                    </div>
+                  </div>
+                  <button className="flex w-full items-center justify-center gap-2 bg-gradient-to-r from-[#ff5b17] via-[#ff7043] to-[#f43c2b] px-4 py-4 text-xs font-black uppercase tracking-[0.18em] text-[#1d0a03] transition group-hover:brightness-110">Ver formato <span className="text-base">↗</span></button>
+                </article>
+              ))}
+            </div>
+          </section>
         </main>
       ) : (
         <main className="relative z-10 mx-auto max-w-7xl px-6 py-12 lg:px-10"><div className="mb-10 flex flex-col justify-between gap-5 sm:flex-row sm:items-end"><div><p className="text-xs font-bold uppercase tracking-[0.25em] text-[#d9b65c]">Central de comando</p><h1 className="mt-3 text-4xl font-black text-[#fff8e9]">Seu império, em movimento.</h1><p className="mt-2 text-[#988b70]">Gerencie acessos, conteúdos e o ritmo da sua comunidade.</p></div><button onClick={copyLink} className="rounded-xl border border-[#c7a14a]/30 px-5 py-3 text-sm font-bold text-[#e4c36e] hover:bg-[#c7a14a]/10">{copied ? 'Link copiado!' : 'Copiar link público'}</button></div><div className="grid gap-4 sm:grid-cols-3"><div className="rounded-2xl border border-[#c7a14a]/15 bg-[#11100c] p-5"><p className="text-sm text-[#988b70]">Pessoas interessadas</p><p className="mt-3 text-4xl font-black text-[#e4c36e]">{leads.length}</p></div><div className="rounded-2xl border border-[#c7a14a]/15 bg-[#11100c] p-5"><p className="text-sm text-[#988b70]">Acessos liberados</p><p className="mt-3 text-4xl font-black text-[#e4c36e]">{leads.filter((lead) => lead.approved).length}</p></div><div className="rounded-2xl border border-[#c7a14a]/15 bg-[#11100c] p-5"><p className="text-sm text-[#988b70]">Conteúdos ativos</p><p className="mt-3 text-4xl font-black text-[#e4c36e]">{activeSections.length}</p></div></div><div className="mt-8 grid gap-8 lg:grid-cols-[1.1fr_.9fr]"><section className="rounded-2xl border border-[#c7a14a]/15 bg-[#11100c] p-6"><div className="mb-6 flex items-center justify-between"><div><h2 className="text-xl font-bold text-[#f5e7c1]">Lista de interessados</h2><p className="mt-1 text-sm text-[#756b56]">Aprove ou aguarde cada novo acesso.</p></div><span className="rounded-full bg-[#c7a14a]/10 px-3 py-1 text-xs text-[#d9b65c]">{leads.length} leads</span></div><div className="space-y-3">{leads.map((lead) => <div key={lead.email} className="flex flex-col gap-3 rounded-xl border border-[#c7a14a]/10 bg-[#17130c] p-4 sm:flex-row sm:items-center sm:justify-between"><div><p className="font-medium text-[#eadcbb]">{lead.email}</p><p className="mt-1 text-xs text-[#756b56]">Entrou {lead.createdAt}</p></div><button onClick={() => toggleLead(lead.email)} className={`rounded-lg px-3 py-2 text-xs font-bold ${lead.approved ? 'bg-[#c7a14a]/15 text-[#d9b65c]' : 'bg-[#d3a946] text-[#1c1305]'}`}>{lead.approved ? 'Acesso liberado' : 'Liberar acesso'}</button></div>)}</div></section><section className="rounded-2xl border border-[#c7a14a]/15 bg-[#11100c] p-6"><h2 className="text-xl font-bold text-[#f5e7c1]">Sessões da plataforma</h2><p className="mt-1 text-sm text-[#756b56]">Configure o que aparece no seu link.</p><form onSubmit={addSection} className="mt-5 flex gap-2"><input value={newSection} onChange={(event) => setNewSection(event.target.value)} placeholder="Nome da nova sessão" className="min-w-0 flex-1 rounded-lg border border-[#c7a14a]/20 bg-[#17130c] px-3 py-3 text-sm outline-none placeholder:text-[#756b56] focus:border-[#d9b65c]" /><button className="rounded-lg bg-[#d3a946] px-4 font-bold text-[#1c1305]">Adicionar</button></form><div className="mt-5 space-y-3">{sections.map((section) => <div key={section.id} className="flex items-center justify-between gap-3 rounded-xl border border-[#c7a14a]/10 p-4"><div><p className="text-sm font-bold text-[#eadcbb]">{section.title}</p><p className="mt-1 text-xs text-[#756b56]">{section.type}</p></div><button onClick={() => toggleSection(section.id)} className={`relative h-6 w-11 rounded-full transition ${section.active ? 'bg-[#cfa541]' : 'bg-[#403a2d]'}`}><span className={`absolute top-1 h-4 w-4 rounded-full bg-[#fff7df] transition ${section.active ? 'left-6' : 'left-1'}`} /></button></div>)}</div></section></div></main>
