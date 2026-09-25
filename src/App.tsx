@@ -134,8 +134,9 @@ export default function App() {
 
       {view === 'site' ? (
         <main className="relative z-10 mx-auto max-w-7xl px-6 pb-20 lg:px-10">
-          <section className="grid min-h-[650px] items-center gap-12 py-16 lg:grid-cols-[1.08fr_.92fr] lg:py-24">
-            <div className="max-w-2xl">
+          <section className="relative grid min-h-[650px] items-center gap-12 overflow-hidden rounded-3xl py-16 lg:grid-cols-[1.08fr_.92fr] lg:py-24" style={{ backgroundImage: "url('/uploads/colado-20260925-161910.png')", backgroundSize: 'cover', backgroundPosition: 'center' }}>
+            <div className="absolute inset-0 bg-gradient-to-r from-[#080706] via-[#080706]/85 to-[#080706]/35" />
+            <div className="relative z-10 max-w-2xl">
               <div className="mb-8 flex items-center gap-3 text-xs font-bold uppercase tracking-[0.28em] text-[#d9b65c]"><span className="h-px w-10 bg-[#d9b65c]" />O próximo império começa aqui</div>
               <h1 className="text-5xl font-black leading-[0.98] tracking-[-0.05em] text-[#fff8e9] sm:text-7xl">Pare de assistir.<br /><span className="bg-gradient-to-r from-[#fff0b0] via-[#d3a542] to-[#8e641b] bg-clip-text text-transparent">Comece a viralizar.</span></h1>
               <p className="mt-8 max-w-xl text-lg leading-8 text-[#afa187]">Um encontro reservado para quem quer transformar ideias em movimento, audiência em comunidade e presença digital em um império.</p>
@@ -146,7 +147,7 @@ export default function App() {
               {submitted && <p className="mt-3 text-sm text-[#d9b65c]">Seu interesse foi registrado. Aguarde a liberação do próximo movimento.</p>}
               <div className="mt-10 flex items-center gap-8 text-xs uppercase tracking-[0.16em] text-[#756b56]"><span><b className="text-xl text-[#d9b65c]">01</b><br />Visão</span><span><b className="text-xl text-[#d9b65c]">02</b><br />Estratégia</span><span><b className="text-xl text-[#d9b65c]">03</b><br />Influência</span></div>
             </div>
-            <div className="relative mx-auto flex aspect-square w-full max-w-[520px] items-center justify-center">
+            <div className="relative z-10 mx-auto flex aspect-square w-full max-w-[520px] items-center justify-center">
               <div className="absolute inset-[9%] rounded-full border border-[#c89d42]/30" /><div className="absolute inset-[17%] rounded-full border border-dashed border-[#c89d42]/25" /><div className="absolute h-72 w-72 rounded-full bg-[#b17a20]/15 blur-3xl" />
               <div className="relative flex h-64 w-64 items-center justify-center rounded-full border border-[#e2b957]/50 bg-gradient-to-br from-[#d5a83e]/35 to-[#241706]/80 shadow-[0_0_100px_rgba(201,155,53,0.22)] sm:h-80 sm:w-80"><div className="text-center"><div className="text-8xl font-black tracking-[-0.15em] text-[#e8bd5a]">V</div><p className="mt-1 text-[10px] uppercase tracking-[0.35em] text-[#e7d5a5]">build the empire</p></div></div>
               <span className="absolute left-0 top-1/4 rounded-full border border-[#c7a14a]/20 bg-[#151108]/80 px-4 py-2 text-xs text-[#cbb77e] backdrop-blur">ATENÇÃO → ATIVOS</span><span className="absolute bottom-1/4 right-0 rounded-full border border-[#c7a14a]/20 bg-[#151108]/80 px-4 py-2 text-xs text-[#cbb77e] backdrop-blur">IDEIAS QUE MOVEM</span>
